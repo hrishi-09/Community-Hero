@@ -1,0 +1,104 @@
+.adi-page { padding: 24px 0 60px; min-height: calc(100vh - 60px); }
+.adi-container { max-width: 1100px; display: flex; flex-direction: column; gap: 16px; }
+
+.adi-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
+@media (max-width: 900px) { .adi-grid { grid-template-columns: 1fr; } }
+
+.adi-left { display: flex; flex-direction: column; gap: 16px; }
+
+.adi-issue-card { padding: 24px; }
+.adi-issue-header { margin-bottom: 20px; }
+.adi-badges { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.cat-tag-lg { background: var(--gray-100); color: var(--gray-600); font-size: 0.8rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; }
+.adi-issue-header h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 14px; line-height: 1.35; }
+
+.adi-reporter-info { display: flex; flex-direction: column; gap: 6px; font-size: 0.83rem; color: var(--gray-600); }
+.adi-reporter-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.adi-location { color: var(--gray-500); }
+.adi-time { color: var(--gray-400); }
+
+.adi-desc { padding-top: 16px; border-top: 1px solid var(--gray-100); }
+.adi-desc h4 { font-size: 0.875rem; font-weight: 700; color: var(--gray-600); margin-bottom: 8px; }
+.adi-desc p { font-size: 0.9rem; color: var(--gray-700); line-height: 1.65; }
+
+.adi-media { padding-top: 16px; border-top: 1px solid var(--gray-100); margin-top: 16px; }
+.adi-media h4 { font-size: 0.875rem; font-weight: 700; color: var(--gray-600); margin-bottom: 12px; }
+
+/* Timeline */
+.adi-timeline { padding: 20px; }
+.adi-timeline h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; }
+.adi-titem { display: flex; gap: 12px; padding-bottom: 16px; position: relative; }
+.adi-titem:not(:last-child)::after { content: ''; position: absolute; left: 7px; top: 18px; width: 2px; bottom: 0; background: var(--gray-200); }
+.adi-tdot { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+
+/* Actions panel */
+.adi-right { position: sticky; top: 80px; }
+.adi-actions-panel { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+.adi-actions-panel h3 { font-size: 1rem; font-weight: 800; }
+
+.action-buttons { display: flex; flex-direction: column; gap: 10px; }
+
+.action-status-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  background: white;
+  font-family: inherit;
+}
+.action-status-btn.in-progress { border-color: var(--yellow); background: var(--yellow-light); }
+.action-status-btn.in-progress:hover { background: #fde68a; }
+.action-status-btn.in-progress svg { color: var(--yellow); }
+.action-status-btn.resolved { border-color: var(--green); background: var(--green-light); }
+.action-status-btn.resolved:hover { background: #bbf7d0; }
+.action-status-btn.resolved svg { color: var(--green); }
+.action-status-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.asb-title { font-size: 0.9rem; font-weight: 700; }
+.asb-desc { font-size: 0.78rem; color: var(--gray-500); margin-top: 2px; }
+
+/* Proof section */
+.proof-section {
+  border: 1.5px dashed var(--gray-300);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.proof-section h4 { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+.proof-hint { font-size: 0.8rem; color: var(--gray-400); margin-bottom: 12px; }
+
+.proof-select-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  border: 1.5px dashed var(--brand);
+  border-radius: var(--radius-sm);
+  color: var(--brand);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--brand-light);
+  transition: all 0.15s;
+}
+.proof-select-btn:hover { background: #bfdbfe; }
+
+.resolved-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green-light);
+  border: 1px solid #86efac;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  color: var(--green);
+}
+
+.adi-loading { display: flex; justify-content: center; align-items: center; min-height: 60vh; }

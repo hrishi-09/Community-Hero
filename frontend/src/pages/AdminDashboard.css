@@ -1,0 +1,97 @@
+.admin-page { padding: 24px 0 60px; min-height: calc(100vh - 60px); }
+.admin-container { display: flex; flex-direction: column; gap: 20px; }
+
+.admin-header { display: flex; align-items: flex-start; justify-content: space-between; }
+.admin-header h2 { font-size: 1.4rem; font-weight: 800; }
+.admin-subtitle { font-size: 0.85rem; color: var(--gray-500); margin-top: 4px; }
+.super-badge { margin-left: 8px; background: #fef3c7; color: #92400e; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+
+.admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 640px) { .admin-stats { grid-template-columns: repeat(2, 1fr); } }
+
+.stat-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid transparent;
+}
+.stat-card.total { border-color: var(--brand); }
+.stat-card.total svg { color: var(--brand); }
+.stat-card.pending { border-color: var(--red); }
+.stat-card.pending svg { color: var(--red); }
+.stat-card.progress { border-color: var(--yellow); }
+.stat-card.progress svg { color: var(--yellow); }
+.stat-card.resolved { border-color: var(--green); }
+.stat-card.resolved svg { color: var(--green); }
+
+.stat-num { font-size: 2rem; font-weight: 900; color: var(--gray-900); line-height: 1; }
+.stat-lbl { font-size: 0.8rem; color: var(--gray-500); font-weight: 500; }
+
+.admin-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+.admin-filters .input-field { flex: 1; min-width: 160px; padding: 9px 12px; font-size: 0.85rem; }
+
+.issues-table { display: flex; flex-direction: column; gap: 12px; }
+
+.admin-issue-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  flex-wrap: wrap;
+  border-left: 5px solid transparent;
+  transition: border-color 0.2s;
+}
+.admin-issue-row.pending { border-left-color: var(--red); }
+.admin-issue-row.in_progress { border-left-color: var(--yellow); }
+.admin-issue-row.resolved { border-left-color: var(--green); opacity: 0.85; }
+
+.arow-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+
+.arow-thumb {
+  width: 60px; height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.arow-info { flex: 1; min-width: 0; }
+.arow-badges { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+
+.cat-tag {
+  font-size: 0.73rem;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.arow-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--gray-900);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.arow-title:hover { color: var(--brand); }
+
+.arow-meta { font-size: 0.75rem; color: var(--gray-400); line-height: 1.6; }
+
+.arow-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+
+.admin-loading { display: flex; justify-content: center; padding: 60px; }

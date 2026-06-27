@@ -1,0 +1,146 @@
+.feed-page { padding: 24px 0 60px; min-height: calc(100vh - 60px); }
+
+.feed-container { max-width: 680px; }
+
+.feed-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+.feed-header h2 { font-size: 1.3rem; font-weight: 800; }
+.feed-subtitle { font-size: 0.85rem; color: var(--gray-400); margin-top: 2px; }
+
+.feed-header-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+.feed-filters {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.feed-filters .input-field { flex: 1; min-width: 140px; padding: 9px 12px; font-size: 0.85rem; }
+
+.issues-list { display: flex; flex-direction: column; gap: 16px; }
+
+.issue-card {
+  display: block;
+  transition: transform 0.15s, box-shadow 0.15s;
+  color: inherit;
+  padding-bottom: 4px;
+}
+.issue-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.issue-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+  gap: 12px;
+}
+
+.reporter-info { display: flex; align-items: center; gap: 10px; }
+
+.reporter-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.reporter-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.reporter-name { font-weight: 600; font-size: 0.9rem; }
+
+.issue-meta {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.issue-card-body { padding: 0 16px 12px; }
+
+.issue-category-tag {
+  display: inline-block;
+  background: var(--brand-light);
+  color: var(--brand);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.issue-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--gray-900);
+  line-height: 1.4;
+}
+
+.issue-desc {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  line-height: 1.55;
+}
+
+.issue-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--gray-100);
+  margin-top: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--gray-500);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.action-btn:hover { background: var(--gray-100); color: var(--gray-700); }
+.action-btn.upvoted { color: var(--brand); }
+
+.police-tag {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Skeleton */
+.skeleton-card {
+  height: 200px;
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.feed-loading { display: flex; flex-direction: column; gap: 16px; }

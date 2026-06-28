@@ -1,0 +1,22 @@
+# Render Blueprint: lets you spin up the database + web service together.
+# In the Render dashboard: New -> Blueprint -> point it at this repo.
+databases:
+  - name: community-hero-db
+    plan: free
+    databaseName: community_hero
+    user: community_hero
+
+services:
+  - type: web
+    name: community-hero-web
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: community-hero-db
+          property: connectionString

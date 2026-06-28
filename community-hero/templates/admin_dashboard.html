@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="admin-layout">
+  <header class="admin-head">
+    <span class="role-eyebrow">Pincode {{ admin.pincode }}</span>
+    <h1>{{ admin.police_station.split('(')[0].strip() }}</h1>
+    <p>{{ pending|length }} pending · {{ resolved|length }} resolved</p>
+  </header>
+
+  <div class="ticket-columns">
+    <div class="ticket-col ticket-col-pending">
+      <h2><span class="dot dot-pending"></span> Pending</h2>
+      {% if not pending %}
+        <p class="empty-state">No open tickets for this pincode right now. 🎉</p>
+      {% endif %}
+      {% for issue in pending %}
+        <article class="ticket-box ticket-pending">
+          <header class="ticket-head">
+            <span class="ticket-id">#{{ issue.id }}</span>
+            <span class="feed-meta">{{ issue.category }} · {{ issue.created_at.strftime('%d %b, %H:%M') }}</span>
+          </header>
+          <p class="feed-location">📍 {{ issue.location_text }}</p>
+          <p class="feed-desc">{{ issue.description }}</p>
+          {% if issue.media_filename %}
+            {% if issue.media_type == "image" %}
+              <img class="feed-media" src="{{ url_for('static', filename='uploads/' + issue.media_filename) }}" alt="Reported issue photo">
+            {% else %}
+              <video class="feed-media" controls src="{{ url_for('static', filename='uploads/' + issue.media_filename) }}"></video>
+            {% endif %}
+          {% endif %}
+          <p class="feed-meta">Reported by {{ issue.reporter.name }} · {{ issue.verification_count }} citizen confirmation(s)</p>
+
+          <form method="POST" action="{{ url_for('resolve_issue', issue_id=issue.id) }}" enctype="multipart/form-data" class="resolve-form">
+            <label>Upload proof of resolution <span class="required">*</span>
+              <input type="file" name="proof" accept="image/*" required>
+            </label>
+            <button type="submit" class="btn btn-resolve">Mark resolved</button>
+          </form>
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="ticket-col ticket-col-resolved">
+      <h2><span class="dot dot-resolved"></span> Resolved</h2>
+      {% if not resolved %}
+        <p class="empty-state">Nothing resolved here yet.</p>
+      {% endif %}
+      {% for issue in resolved %}
+        <article class="ticket-box ticket-resolved">
+          <header class="ticket-head">
+            <span class="ticket-id">#{{ issue.id }}</span>
+            <span class="feed-meta">{{ issue.category }} · resolved {{ issue.resolved_at.strftime('%d %b, %H:%M') }}</span>
+          </header>
+          <p class="feed-location">📍 {{ issue.location_text }}</p>
+          <p class="feed-desc">{{ issue.description }}</p>
+          {% if issue.resolved_proof_filename %}
+            <img class="feed-media" src="{{ url_for('static', filename='uploads/' + issue.resolved_proof_filename) }}" alt="Resolution proof photo">
+          {% endif %}
+          <p class="feed-meta">+{{ issue.reward_points_awarded }} pts credited to {{ issue.reporter.name }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

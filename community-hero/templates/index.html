@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Pothole on your street? Streetlight out? Garbage piling up?</p>
+  <h1>Report it. Track it. Get it fixed — pincode by pincode.</h1>
+  <p class="hero-sub">Community Hero routes every report straight to the admin for that exact Kolkata pincode, so nothing gets lost between a phone call and a fix.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ url_for('register') }}">Report an issue</a>
+    <a class="btn btn-ghost" href="{{ url_for('login') }}">I already have an account</a>
+  </div>
+</section>
+
+<section class="role-cards">
+  <article class="role-card">
+    <span class="role-eyebrow">For citizens</span>
+    <h2>Post it to the feed</h2>
+    <p>Share a photo, video or description of a local problem, tag the exact pincode, and watch it move from
+      <span class="pill pill-pending">Pending</span> to <span class="pill pill-resolved">Resolved</span>.
+      Earn reward points every time your report gets fixed.</p>
+    <a class="btn btn-primary" href="{{ url_for('register') }}">Register as a citizen</a>
+  </article>
+  <article class="role-card role-card-admin">
+    <span class="role-eyebrow">For police station admins</span>
+    <h2>One login per pincode</h2>
+    <p>See every open ticket for your pincode, mark it resolved with photo proof, and the reporting citizen is rewarded automatically.</p>
+    <a class="btn btn-outline" href="{{ url_for('admin_login') }}">Police admin login</a>
+  </article>
+</section>
+
+<section class="how-it-works">
+  <h2>How a report moves</h2>
+  <ol class="steps">
+    <li><strong>Spot it.</strong> A citizen posts a photo/video, a short description and the exact pincode.</li>
+    <li><strong>Confirm it.</strong> Neighbours tap "I see this too" to verify it's real.</li>
+    <li><strong>Route it.</strong> It lands directly on that pincode's police-station admin dashboard, tagged Pending.</li>
+    <li><strong>Resolve it.</strong> The admin fixes it, uploads proof, flips it to Resolved — and reward points land in the reporter's account.</li>
+  </ol>
+</section>
+{% endblock %}

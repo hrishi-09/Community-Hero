@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-card auth-card-admin">
+  <span class="role-eyebrow">Police station login</span>
+  <h1>Admin sign-in</h1>
+  <p class="auth-sub">Your username is your assigned pincode (e.g. <code>700016</code>). Passwords are issued separately per station — see <code>admin_credentials.csv</code> after running the seed script.</p>
+  <form method="POST" class="form">
+    <label>Pincode / username
+      <input type="text" name="username" required placeholder="700016" autofocus>
+    </label>
+    <label>Password
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button type="submit" class="btn btn-outline btn-block">Log in</button>
+  </form>
+  <p class="auth-switch">Not an admin? <a href="{{ url_for('login') }}">Citizen login</a></p>
+</section>
+{% endblock %}

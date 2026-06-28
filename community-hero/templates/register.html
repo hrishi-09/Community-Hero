@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-card">
+  <span class="role-eyebrow">Public registration</span>
+  <h1>Create your citizen account</h1>
+  <p class="auth-sub">Anyone can register — no invite needed.</p>
+  <form method="POST" class="form">
+    <label>Full name
+      <input type="text" name="name" required autocomplete="name">
+    </label>
+    <label>Phone number
+      <input type="tel" name="phone" required placeholder="98XXXXXXXX" autocomplete="tel">
+    </label>
+    <label>Email
+      <input type="email" name="email" required autocomplete="email">
+    </label>
+    <label>Password
+      <input type="password" name="password" required minlength="6" autocomplete="new-password">
+    </label>
+    <label>Your home pincode <span class="optional">(optional)</span>
+      <select name="home_pincode">
+        <option value="">Select a Kolkata pincode</option>
+        {% for code, area, _ in pincodes %}
+          <option value="{{ code }}">{{ code }} — {{ area }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button type="submit" class="btn btn-primary btn-block">Create account</button>
+  </form>
+  <p class="auth-switch">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+  <p class="auth-switch">Police station admin? <a href="{{ url_for('admin_login') }}">Admin login</a></p>
+</section>
+{% endblock %}

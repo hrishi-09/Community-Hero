@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dash-layout">
+  <div class="dash-main">
+
+    <div class="composer">
+      <h2>Report a new issue</h2>
+      <form method="POST" enctype="multipart/form-data" class="form form-composer">
+        <div class="form-row">
+          <label>Pincode <span class="required">*</span>
+            <select name="pincode" required>
+              <option value="">Select Kolkata pincode</option>
+              {% for code, area, _ in pincodes %}
+                <option value="{{ code }}" {% if current_user.home_pincode == code %}selected{% endif %}>{{ code }} — {{ area }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>Category
+            <select name="category">
+              <option value="">Let AI auto-detect</option>
+              {% for c in categories %}
+                <option value="{{ c }}">{{ c }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </div>
+        <label>Landmark / exact location
+          <input type="text" name="location_text" placeholder="e.g. opposite Lake Market bus stop">
+        </label>
+        <label>What's going on? <span class="required">*</span>
+          <textarea name="description" rows="3" required placeholder="Describe the issue..."></textarea>
+        </label>
+        <label>Photo or video proof
+          <input type="file" name="media" id="media-input" accept="image/*,video/*">
+          <span class="file-hint" id="media-hint">PNG, JPG, GIF, WEBP, MP4, MOV up to 25MB</span>
+        </label>
+        <button type="submit" class="btn btn-primary">Post to the feed</button>
+      </form>
+    </div>
+
+    <form method="GET" class="filter-form">
+      <label class="filter-label">Showing
+        <select name="pincode" onchange="this.form.submit()">
+          <option value="">All Kolkata pincodes</option>
+          {% for code, area, _ in pincodes %}
+            <option value="{{ code }}" {% if filter_pincode == code %}selected{% endif %}>{{ code }} — {{ area }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </form>
+
+    <div class="feed">
+      {% if not issues %}
+        <p class="empty-state">No reports yet for this filter. Be the first to flag something.</p>
+      {% endif %}
+      {% for issue in issues %}
+        <article class="feed-card">
+          <header class="feed-card-head">
+            <span class="pill {{ 'pill-pending' if issue.status == 'pending' else 'pill-resolved' }}">
+              {{ "Pending" if issue.status == "pending" else "Resolved" }}
+            </span>
+            <span class="feed-meta">{{ issue.pincode }} · {{ issue.category }} · {{ issue.created_at.strftime('%d %b, %H:%M') }}</span>
+          </header>
+          <p class="feed-location">📍 {{ issue.location_text }}</p>
+          <p class="feed-desc">{{ issue.description }}</p>
+
+          {% if issue.media_filename %}
+            {% if issue.media_type == "image" %}
+              <img class="feed-media" src="{{ url_for('static', filename='uploads/' + issue.media_filename) }}" alt="Photo of the reported issue">
+            {% else %}
+              <video class="feed-media" controls src="{{ url_for('static', filename='uploads/' + issue.media_filename) }}"></video>
+            {% endif %}
+          {% endif %}
+
+          {% if issue.status == "resolved" and issue.resolved_proof_filename %}
+            <div class="resolution-proof">
+              <p class="proof-label">✅ Resolution proof from {{ issue.resolved_by.police_station.split('(')[0].strip() if issue.resolved_by else "the police station" }}</p>
+              <img class="feed-media" src="{{ url_for('static', filename='uploads/' + issue.resolved_proof_filename) }}" alt="Proof the issue was resolved">
+            </div>
+          {% endif %}
+
+          <footer class="feed-card-foot">
+            <span>Reported by {{ issue.reporter.name }}</span>
+            <form method="POST" action="{{ url_for('verify_issue', issue_id=issue.id) }}">
+              <button type="submit" class="btn-verify">👀 I see this too ({{ issue.verification_count }})</button>
+            </form>
+          </footer>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <aside class="dash-side">
+    <div class="stat-card">
+      <h3>City impact</h3>
+      <div class="stat-row"><span class="pill pill-pending">Pending</span><strong>{{ stats.pending }}</strong></div>
+      <div class="stat-row"><span class="pill pill-resolved">Resolved</span><strong>{{ stats.resolved }}</strong></div>
+    </div>
+    <div class="stat-card">
+      <h3>Top contributors</h3>
+      {% if not leaderboard %}
+        <p class="empty-state-small">No reward points awarded yet.</p>
+      {% endif %}
+      <ol class="leaderboard">
+        {% for u in leaderboard %}
+          <li><span>{{ u.name }}</span><strong>{{ u.reward_points }} pts</strong></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </aside>
+</section>
+{% endblock %}
